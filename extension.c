@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 
 #define DELAY 30
-#define UDP_TARGET_IP "192.168.137.218"
+#define UDP_TARGET_IP "PI IP HERE"
 #define UDP_TARGET_PORT 8888
 
 // Create socket and send data

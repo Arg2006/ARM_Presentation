@@ -1,18 +1,25 @@
-# Using the Pi Pico and pico-sdk
+# Plant Health Analysis - Getting Started
+
+## 1. Setting up the Pi Pico
 
 This project contains firmware for the Raspberry Pi Pico. It includes source files for core logic, display handling, and network features.
 
-- **CYW43** is the driver used to interface with the onboard network card.  
+- **CYW43** is the onboard network chip, we interface with this using *wifi_handler*.  
 - **LWIP** is used in the construction of the UDP stack.  
-- **ILI9341** and **XPT2046** are modified drivers for the display.
+- **ST7789** and **XPT2046** are the display controllers for render and touch respectively, we have a custom driver for the display.
 
 ---
 
 ## Project Structure
 
-- [`src`](https://gitlab.doc.ic.ac.uk/lab2425_summer/armv8_13/-/tree/pi_pico/extension/pico_files/src) – Main application logic  
-  - [`display`](https://gitlab.doc.ic.ac.uk/lab2425_summer/armv8_13/-/tree/pi_pico/extension/pico_files/src/display) – Display-related code  
-  - [`network`](https://gitlab.doc.ic.ac.uk/lab2425_summer/armv8_13/-/tree/pi_pico/extension/pico_files/src/network) – Network features
+- [`pico_files`](https://github.com/Arg2006/ARM_Presentation/pico_files/) – All files pertaining to the Pi Pico
+   - [`include`](https://github.com/Arg2006/ARM_Presentation/pico_files/include) – Configuration options for networking
+   - [`src`](https://github.com/Arg2006/ARM_Presentation/src/) –  Main application logic for Pico
+      - [`network`](https://github.com/Arg2006/ARM_Presentation/src/network) – Network features
+      - [`display`](https://github.com/Arg2006/ARM_Presentation/pico_files/src/display) – Display-related code
+- [`sensors`](https://github.com/Arg2006/ARM_Presentation/sensors) – Program for reading sensor data
+- [`src`](https://github.com/Arg2006/ARM_Presentation/src) – Image processing and analysis algorithm
+
 
 ---
 
@@ -20,13 +27,14 @@ This project contains firmware for the Raspberry Pi Pico. It includes source fil
 
 You can flash the firmware to your Raspberry Pi Pico in two main ways:
 
-### Method 1: Flashing via UF2 File
+### Method 1 (recommended): Flashing via UF2 File
 
 1. **Build the UF2 File**
 
    Make sure you have the [Pico SDK](https://github.com/raspberrypi/pico-sdk) and CMake toolchain set up correctly.
 
    ```bash
+   cd pico_files
    mkdir build
    cd build
    cmake -DPICO_BOARD=pico_w -DWIFI_SSID="ssid_here" -DWIFI_PASSWORD="top_secret" ..
@@ -55,6 +63,7 @@ You can flash the firmware to your Raspberry Pi Pico in two main ways:
 1. **Build the ELF File**
 
    ```bash
+   cd pico_files
    mkdir build
    cd build
    cmake ../pico_files
@@ -88,7 +97,7 @@ You can flash the firmware to your Raspberry Pi Pico in two main ways:
 - GCC for ARM (`arm-none-eabi-gcc`)
 - Pico SDK
 - `picotool` (for SDK flashing, optional)
-- A Raspberry Pi Pico
+- A Raspberry Pi Pico W or equivalent RP2040 device with CYW43 WiFi chip.
 
 ---
 
@@ -103,6 +112,29 @@ You can flash the firmware to your Raspberry Pi Pico in two main ways:
 
 It's best to begin by monitoring the serial output, a delay is included in the main loop to give you time to connect and see the output. 
 The WiFi network should connect and return an IP, Gateway and Subnet Mask. If not, please check the credentials, or use the optional scan_networks() function.
-(scan_networks() is currently unfinished.)
+(scan_networks() is not included in this version to save space, see version history, scan_networks.c.)
 
-Once the WiFi connection is established, the program tries to start a UDP server.
+Once the WiFi connection is established, the program attempts to start a UDP server. The output is verbose, so if this fails, debug at the current step.
+
+Once the UDP server is active, the display will load the default monitoring page, and you're ready to move onto the next step!
+
+## 2. Setting up the Pi 3B (or similar)
+
+### Setting up the sensors
+
+The program expects the sensors to be connected in the following arrangement:
+
+   SHT30-D I2C Temperature and Humidity Sensor:
+   SAA - GPIO 8
+   SCL - GPIO 9
+
+   LDR:
+   Connect in RC charging circuit, connect +ve leg of capacitor to GPIO 0
+
+   Moisture Sensor:
+   As above, but connect to GPIO 2.
+
+   Relay for pump:
+   Connect to GPIO 3.
+
+You are now ready to run the algorithm, simply point the camera at the plant, ```make extension``` and voila!
