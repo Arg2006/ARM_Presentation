@@ -12,13 +12,13 @@ This project contains firmware for the Raspberry Pi Pico. It includes source fil
 
 ## Project Structure
 
-- [`pico_files`](https://github.com/Arg2006/ARM_Presentation/pico_files/) – All files pertaining to the Pi Pico
-   - [`include`](https://github.com/Arg2006/ARM_Presentation/pico_files/include) – Configuration options for networking
-   - [`src`](https://github.com/Arg2006/ARM_Presentation/src/) –  Main application logic for Pico
-      - [`network`](https://github.com/Arg2006/ARM_Presentation/src/network) – Network features
-      - [`display`](https://github.com/Arg2006/ARM_Presentation/pico_files/src/display) – Display-related code
-- [`sensors`](https://github.com/Arg2006/ARM_Presentation/sensors) – Program for reading sensor data
-- [`src`](https://github.com/Arg2006/ARM_Presentation/src) – Image processing and analysis algorithm
+- [`pico_files`](https://github.com/Arg2006/ARM_Presentation/tree/main/pico_files/) – All files pertaining to the Pi Pico
+   - [`include`](https://github.com/Arg2006/ARM_Presentation/tree/main/pico_files/include) – Configuration options for networking
+   - [`src`](https://github.com/Arg2006/ARM_Presentation/tree/main/pico_files/src/) –  Main application logic for Pico
+      - [`network`](https://github.com/Arg2006/ARM_Presentation/tree/main/src/network) – Network features
+      - [`display`](https://github.com/Arg2006/ARM_Presentation/tree/main/pico_files/src/display) – Display-related code
+- [`sensors`](https://github.com/Arg2006/ARM_Presentation/tree/main/sensors) – Program for reading sensor data
+- [`src`](https://github.com/Arg2006/ARM_Presentation/tree/main/src) – Image processing and analysis algorithm
 
 
 ---
